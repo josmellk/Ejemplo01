@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+:root {
+  --color-fondo: #f0f4f8;
+  --color-principal: #4a90e2;
+  --color-texto: #333;
+  --color-tarjeta: #ffffff;
+  --sombra: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+header {
+  background-color: var(--color-principal);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  box-shadow: var(--sombra);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+header p {
+  margin: 0.5rem 0 0;
+  font-weight: 400;
+}
+
+.contenido {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.tarjeta {
+  background-color: var(--color-tarjeta);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--sombra);
+  transition: transform 0.3s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #e0e0e0;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
