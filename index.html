@@ -9,24 +9,31 @@
   <p>Si el nodo principal falla, serás redirigido al nodo de respaldo.</p>
 
   <script>
-    // URL del nodo principal (la misma donde está esta página)
-    const nodoPrincipal = window.location.origin;
+  const nodoRespaldo = "https://nodo-respaldo.onrender.com";
 
-    // URL del nodo de respaldo
-    const nodoRespaldo = "https://nodo-respaldo.onrender.com";
+  // Tiempo máximo en ms para esperar respuesta
+  const TIMEOUT = 3000; 
 
-    // Intenta hacer fetch a la URL principal (a un archivo "status" o el index)
-    fetch(nodoPrincipal, { method: "HEAD", mode: "no-cors" })
-      .then(() => {
-        // Si la respuesta es exitosa (o al menos no hubo error), NO redirigimos
-        console.log("Nodo principal activo");
-      })
-      .catch(() => {
-        // Si hay un error (falló el fetch), redirigimos al nodo de respaldo
-        console.warn("Nodo principal NO disponible, redirigiendo...");
-        window.location.href = nodoRespaldo;
-      });
-  </script>
+  function fetchWithTimeout(resource, options = {}) {
+    return Promise.race([
+      fetch(resource, options),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), TIMEOUT)
+      )
+    ]);
+  }
+
+  fetchWithTimeout(window.location.origin, { method: 'GET', mode: 'no-cors' })
+    .then(() => {
+      console.log("Nodo principal activo");
+    })
+    .catch(() => {
+      console.warn("Nodo principal NO disponible, redirigiendo...");
+      window.location.href = nodoRespaldo;
+    });
+</script>
+
+  
 </body>
 </html>
 
