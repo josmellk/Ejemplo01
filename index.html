@@ -2,34 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Página Bonita</title>
-  <link rel="stylesheet" href="estilos.css" />
+  <title>Página Principal</title>
 </head>
 <body>
-  <header>
-    <h1>Nodo Principal</h1>
-    <p>web</p>
-  </header>
+  <h1>Hola desde la Página Principal 🌐</h1>
+  <p>Si el nodo principal falla, serás redirigido al nodo de respaldo.</p>
 
-  <main class="contenido">
-    <section class="tarjeta">
-      <h2>Acerca de</h2>
-      <p>Esta página es de diseño moderno.</p>
-    </section>
-    <section class="tarjeta">
-      <h2>Servicios</h2>
-      <p>Ofrecemos diseño web, desarrollo de apps y mucho más.</p>
-    </section>
-    <section class="tarjeta">
-      <h2>Contacto</h2>
-      <p>Escríbenos a ejemplo@correo.com para más información.</p>
-    </section>
-  </main>
+  <script>
+    // URL del nodo principal (la misma donde está esta página)
+    const nodoPrincipal = window.location.origin;
 
-  <footer>
-    <p>&copy; 2025 Mi Página</p>
-  </footer>
+    // URL del nodo de respaldo
+    const nodoRespaldo = "https://nodo-respaldo.onrender.com";
+
+    // Intenta hacer fetch a la URL principal (a un archivo "status" o el index)
+    fetch(nodoPrincipal, { method: "HEAD", mode: "no-cors" })
+      .then(() => {
+        // Si la respuesta es exitosa (o al menos no hubo error), NO redirigimos
+        console.log("Nodo principal activo");
+      })
+      .catch(() => {
+        // Si hay un error (falló el fetch), redirigimos al nodo de respaldo
+        console.warn("Nodo principal NO disponible, redirigiendo...");
+        window.location.href = nodoRespaldo;
+      });
+  </script>
 </body>
 </html>
+
 
